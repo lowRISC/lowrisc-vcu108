@@ -30,7 +30,8 @@ set proj_dir [get_property directory [current_project]]
 # Set project properties
 set obj [get_projects $project_name]
 set_property "default_lib" "xil_defaultlib" $obj
-set_property "part" "xc7a100tcsg324-1" $obj
+set_property "part" "xcvu095-ffva2104-2-e" $obj
+set_property "board_part" "xilinx.com:vcu108:part0:1.1" $obj
 set_property "simulator_language" "Mixed" $obj
 
 # Create 'sources_1' fileset (if not found)
@@ -180,7 +181,7 @@ generate_target {instantiation_template} \
     [get_files $proj_dir/$project_name.srcs/sources_1/ip/axi_bram_ctrl_0/axi_bram_ctrl_0.xci]
 
 # Memory Controller
-create_ip -name ddr4 -vendor xilinx.com -library ip -version 2.0 -module_name mig_7series_0
+create_ip -name ddr4 -vendor xilinx.com -library ip -version 2.* -module_name mig_7series_0
 set_property -dict [list CONFIG.RESET_BOARD_INTERFACE {reset} CONFIG.C0_CLOCK_BOARD_INTERFACE {default_sysclk1_300} CONFIG.C0_DDR4_BOARD_INTERFACE {ddr4_sdram_c1} CONFIG.C0.DDR4_InputClockPeriod {3332} CONFIG.C0.DDR4_MemoryPart {EDY4016AABG-DR-F} CONFIG.C0.DDR4_DataWidth {64} CONFIG.C0.DDR4_AxiDataWidth {512} CONFIG.ADDN_UI_CLKOUT1_FREQ_HZ {60} CONFIG.Debug_Signal {Disable} CONFIG.System_Clock {Differential} CONFIG.C0.DDR4_AxiAddressWidth {31} CONFIG.C0.DDR4_AxiSelection {true}] [get_ips mig_7series_0]
 generate_target -force {instantiation_template} \
     [get_files $proj_dir/$project_name.srcs/sources_1/ip/mig_7series_0/mig_7series_0.xci]
